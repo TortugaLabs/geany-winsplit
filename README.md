@@ -35,7 +35,7 @@ of the GNU General Public License along with this plugin.  If not, see
 To report a bug or ask for a new feature, please use the tracker
 on GitHub.
 
-  [repo]: https://github.com/TortugaLabs/geany-winsplit
+  [repo]: https://github.com/TortugaLabs/geany-winsplit-plugin
   [spw]: https://github.com/geany/geany/blob/master/plugins/splitwindow.c
 
 
