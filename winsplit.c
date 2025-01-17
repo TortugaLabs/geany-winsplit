@@ -31,7 +31,7 @@
 
 PLUGIN_VERSION_CHECK(GEANY_API_VERSION)
 PLUGIN_SET_INFO(_("winsplit"), _("(Based on Split Window) Splits the editor view into two windows."),
-	PACKAGE_VERSION, _("Originally by The Geany developer team"))
+	PACKAGE_VERSION, _("Originally The Geany developer team"))
 
 
 GeanyData		*geany_data;
@@ -43,7 +43,7 @@ enum
 {
 	KB_SPLIT_HORIZONTAL,
 	KB_SPLIT_VERTICAL,
-	KB_SPLIT_UNSPLIT,
+	//~ KB_SPLIT_UNSPLIT,
 	KB_COUNT
 };
 
@@ -377,23 +377,19 @@ static void on_unsplit(GtkMenuItem *menuitem, gpointer user_data)
 
 static void kb_activate(guint key_id)
 {
-	switch (key_id)
-	{
-		case KB_SPLIT_HORIZONTAL:
-			if (plugin_state == STATE_UNSPLIT)
-				split_view(TRUE);
-			break;
-		case KB_SPLIT_VERTICAL:
-			if (plugin_state == STATE_UNSPLIT)
-				split_view(FALSE);
-			break;
-		case KB_SPLIT_UNSPLIT:
-			if (plugin_state != STATE_UNSPLIT)
-				on_unsplit(NULL, NULL);
-			break;
-	}
+  if (plugin_state != STATE_UNSPLIT) {
+    on_unsplit(NULL,NULL);
+    return;
+  }
+  switch (key_id) {
+  case KB_SPLIT_HORIZONTAL:
+    if (plugin_state == STATE_UNSPLIT) split_view(TRUE);
+    break;
+  case KB_SPLIT_VERTICAL:
+    if (plugin_state == STATE_UNSPLIT) split_view(FALSE);
+    break;
+  }
 }
-
 
 void plugin_init(GeanyData *data)
 {
@@ -427,13 +423,13 @@ void plugin_init(GeanyData *data)
 	set_state(STATE_UNSPLIT);
 
 	/* setup keybindings */
-	key_group = plugin_set_key_group(geany_plugin, "split_window", KB_COUNT, NULL);
+	key_group = plugin_set_key_group(geany_plugin, "winsplit", KB_COUNT, NULL);
 	keybindings_set_item(key_group, KB_SPLIT_HORIZONTAL, kb_activate,
 		0, 0, "split_horizontal", _("Side by Side"), menu_items.horizontal);
 	keybindings_set_item(key_group, KB_SPLIT_VERTICAL, kb_activate,
 		0, 0, "split_vertical", _("Top and Bottom"), menu_items.vertical);
-	keybindings_set_item(key_group, KB_SPLIT_UNSPLIT, kb_activate,
-		0, 0, "split_unsplit", _("_Unsplit"), menu_items.unsplit);
+	//~ keybindings_set_item(key_group, KB_SPLIT_UNSPLIT, kb_activate,
+		//~ 0, 0, "split_unsplit", _("_Unsplit"), menu_items.unsplit);
 }
 
 
